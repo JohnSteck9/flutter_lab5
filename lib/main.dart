@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-        child: HomeScreen(),
+        child: const HomeScreen(),
         create: (context) => DictionaryCubit(WordRepository()),
       ),
     );
