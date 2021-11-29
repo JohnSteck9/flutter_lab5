@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   getDictionaryFormWidget(BuildContext context) {
     final cubit = context.watch<DictionaryCubit>();
 
@@ -11,8 +13,8 @@ class HomeScreen extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          Spacer(),
-          Text(
+          const Spacer(),
+          const Text(
             "Dictionary App",
             style: TextStyle(
               color: Colors.deepOrangeAccent,
@@ -20,14 +22,14 @@ class HomeScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Text(
+          const Text(
             "Search any word you want quickly",
             style: TextStyle(
               color: Colors.white,
               fontSize: 14,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 32,
           ),
           TextField(
@@ -36,16 +38,16 @@ class HomeScreen extends StatelessWidget {
               hintText: "Search a word",
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
-                borderSide: BorderSide(color: Colors.transparent),
+                borderSide: const BorderSide(color: Colors.transparent),
               ),
               fillColor: Colors.grey[100],
               filled: true,
-              prefixIcon: Icon(Icons.search),
-              hintStyle: TextStyle(color: Colors.white),
+              prefixIcon: const Icon(Icons.search),
+              hintStyle: const TextStyle(color: Colors.white),
             ),
           ),
-          Spacer(),
-          Container(
+          const Spacer(),
+          SizedBox(
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
@@ -54,7 +56,7 @@ class HomeScreen extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                   primary: Colors.deepOrangeAccent,
                   padding: const EdgeInsets.all(16)),
-              child: Text("SEARCH"),
+              child: const Text("SEARCH"),
             ),
           ),
         ],
@@ -63,11 +65,15 @@ class HomeScreen extends StatelessWidget {
   }
 
   getLoadingWidget() {
-    return Center(child: CircularProgressIndicator());
+    return const Center(child: CircularProgressIndicator());
   }
 
   getErrorWidget(message) {
-    return Center(child: Text(message, style: TextStyle(color: Colors.white),));
+    return Center(
+        child: Text(
+      message,
+      style: const TextStyle(color: Colors.white),
+    ));
   }
 
   @override
@@ -76,7 +82,7 @@ class HomeScreen extends StatelessWidget {
 
     return BlocListener(
       listener: (context, state) {
-        if (state is WordSearchedState && state.words != null) {
+        if (state is WordSearchedState) {
           Navigator.push(
             context,
             MaterialPageRoute(

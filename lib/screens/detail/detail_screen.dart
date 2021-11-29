@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class DetailScreen extends StatelessWidget {
   final WordResponse wordResponse;
 
-  DetailScreen(this.wordResponse);
+  const DetailScreen(this.wordResponse, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +16,10 @@ class DetailScreen extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              "${wordResponse.word}",
-              style: TextStyle(color: Colors.white, fontSize: 36),
+              wordResponse.word,
+              style: const TextStyle(color: Colors.white, fontSize: 36),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Expanded(
@@ -32,19 +32,19 @@ class DetailScreen extends StatelessWidget {
                     children: [
                       Text(
                         meaning.partOfSpeech,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
-                      SizedBox(height: 8,),
+                      const SizedBox(height: 8,),
                       ListView.separated(
                         itemBuilder: (context, index) => Column(
                           children: [
-                            Text("Defination : "+ definations[index].definition, style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                            SizedBox(height: 4,),
-                            Text("Sentence  : ${definations[index].example}", style: TextStyle(color: Colors.white),),
+                            Text("Defination : "+ definations[index].definition, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                            const SizedBox(height: 4,),
+                            Text("Sentence  : ${definations[index].example}", style: const TextStyle(color: Colors.white),),
                           ],
                           crossAxisAlignment: CrossAxisAlignment.start,
                         ),
-                        separatorBuilder: (context, index) => SizedBox(height: 8,),
+                        separatorBuilder: (context, index) => const SizedBox(height: 8,),
                         itemCount: definations.length,
                         shrinkWrap: true,
                       )
@@ -52,7 +52,7 @@ class DetailScreen extends StatelessWidget {
                   );
                 },
                 itemCount: wordResponse.meanings.length,
-                separatorBuilder: (context, index) => SizedBox(
+                separatorBuilder: (context, index) => const SizedBox(
                   height: 32,
                 ),
               ),
