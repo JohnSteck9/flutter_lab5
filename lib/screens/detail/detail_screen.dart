@@ -26,7 +26,7 @@ class DetailScreen extends StatelessWidget {
               child: ListView.separated(
                 itemBuilder: (context, index) {
                   final meaning = wordResponse.meanings[index];
-                  final definations = meaning.definitions;
+                  final definitions = meaning.definitions;
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -38,14 +38,14 @@ class DetailScreen extends StatelessWidget {
                       ListView.separated(
                         itemBuilder: (context, index) => Column(
                           children: [
-                            Text("Defination : "+ definations[index].definition, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                            Text("Defination : "+ definitions[index].definition, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
                             const SizedBox(height: 4,),
-                            Text("Sentence  : ${definations[index].example}", style: const TextStyle(color: Colors.white),),
+                            Text("Sentence  : ${definitions[index].example}", style: const TextStyle(color: Colors.white),),
                           ],
                           crossAxisAlignment: CrossAxisAlignment.start,
                         ),
                         separatorBuilder: (context, index) => const SizedBox(height: 8,),
-                        itemCount: definations.length,
+                        itemCount: definitions.length,
                         shrinkWrap: true,
                       )
                     ],
