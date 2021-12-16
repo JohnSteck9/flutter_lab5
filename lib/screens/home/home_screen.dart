@@ -1,7 +1,5 @@
-import 'package:lab5_app/bloc/dictionary_cubit.dart';
-import 'package:lab5_app/screens/list/list_screen.dart';
+import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -12,123 +10,83 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-
-
 class _HomeScreenState extends State<HomeScreen> {
 
-  getDictionaryFormWidget(BuildContext context) {
-    final cubit = context.watch<DictionaryCubit>();
+  random(min, max){
+    var rn = Random();
+    return min + rn.nextInt(max - min);
+  }
+
+  int _couter1 = 0;
+  int _couter2 = 0;
 
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      child: SafeArea(
-        child: Column(
+  _getInt(){
+    setState(){
+      _couter1 = random(5, 10);
+      // _couter1 = random(5, 10);
+}
+  }
+  // _getInt();
+
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: Row(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.archive, size: 40, color: Colors.orange),
-                  onPressed: () {},
+            Column(children: [
+              Container(
+                color: Colors.blue,
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('Left_1'),
                 ),
-              ],
-            ),
-            const Spacer(),
-            const Text(
-              "Dictionary App",
-              style: TextStyle(
-                color: Colors.deepOrangeAccent,
-                fontSize: 34,
-                fontWeight: FontWeight.bold,
               ),
-            ),
-            const Text(
-              "Search any word you want quickly",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            TextField(
-              controller: cubit.queryController,
-              decoration: InputDecoration(
-                hintText: "Search a word",
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(color: Colors.transparent),
+              Container(
+                color: Colors.blue,
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('Left_1'),
                 ),
-                fillColor: Colors.grey[100],
-                filled: true,
-                prefixIcon: const Icon(Icons.search),
-                hintStyle: const TextStyle(color: Colors.white),
               ),
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {
-                  cubit.getWordSearched();
-                },
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.deepOrangeAccent,
-                    padding: const EdgeInsets.all(16)),
-                child: const Text("SEARCH"),
+              Container(
+                color: Colors.blue,
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('Left_1'),
+                ),
               ),
-            ),
+            ]),
+            const SizedBox(width: 200),
+            Column(children: [
+              Container(
+                color: Colors.blue,
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('Right_1'),
+                ),
+              ),
+              Container(
+                color: Colors.blue,
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('Right_1'),
+                ),
+              ),
+              Container(
+                color: Colors.blue,
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('Right_1'),
+                ),
+              ),
+            ]),
           ],
         ),
       ),
     );
   }
-
-  getLoadingWidget() {
-    return const Center(child: CircularProgressIndicator());
-  }
-
-  getErrorWidget(message) {
-    return Center(
-        child: Text(
-          message,
-          style: const TextStyle(color: Colors.white),
-        ));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final cubit = context.watch<DictionaryCubit>();
-
-    return BlocListener(
-      listener: (context, state) {
-        if (state is WordSearchedState) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ListScreen(state.words),
-            ),
-          );
-        }
-      },
-      bloc: cubit,
-      child: Scaffold(
-          backgroundColor: Colors.blueGrey[900],
-          body: cubit.state is WordSearchingState
-              ? getLoadingWidget()
-              : cubit.state is ErrorState
-              ? getErrorWidget("Some Error")
-              : cubit.state is NoWordSearchedState
-              ? getDictionaryFormWidget(context)
-              : Container()),
-    );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
 }
