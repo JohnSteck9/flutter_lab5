@@ -3,63 +3,85 @@ import 'package:lab5_app/screens/list/list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatelessWidget {
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+
+
+class _HomeScreenState extends State<HomeScreen> {
 
   getDictionaryFormWidget(BuildContext context) {
     final cubit = context.watch<DictionaryCubit>();
 
+
     return Container(
       padding: const EdgeInsets.all(16),
-      child: Column(
-        children: [
-          const Spacer(),
-          const Text(
-            "Dictionary App",
-            style: TextStyle(
-              color: Colors.deepOrangeAccent,
-              fontSize: 34,
-              fontWeight: FontWeight.bold,
+      child: SafeArea(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.archive, size: 40, color: Colors.orange),
+                  onPressed: () {},
+                ),
+              ],
             ),
-          ),
-          const Text(
-            "Search any word you want quickly",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-            ),
-          ),
-          const SizedBox(
-            height: 32,
-          ),
-          TextField(
-            controller: cubit.queryController,
-            decoration: InputDecoration(
-              hintText: "Search a word",
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide: const BorderSide(color: Colors.transparent),
+            const Spacer(),
+            const Text(
+              "Dictionary App",
+              style: TextStyle(
+                color: Colors.deepOrangeAccent,
+                fontSize: 34,
+                fontWeight: FontWeight.bold,
               ),
-              fillColor: Colors.grey[100],
-              filled: true,
-              prefixIcon: const Icon(Icons.search),
-              hintStyle: const TextStyle(color: Colors.white),
             ),
-          ),
-          const Spacer(),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {
-                cubit.getWordSearched();
-              },
-              style: ElevatedButton.styleFrom(
-                  primary: Colors.deepOrangeAccent,
-                  padding: const EdgeInsets.all(16)),
-              child: const Text("SEARCH"),
+            const Text(
+              "Search any word you want quickly",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(
+              height: 32,
+            ),
+            TextField(
+              controller: cubit.queryController,
+              decoration: InputDecoration(
+                hintText: "Search a word",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(4),
+                  borderSide: const BorderSide(color: Colors.transparent),
+                ),
+                fillColor: Colors.grey[100],
+                filled: true,
+                prefixIcon: const Icon(Icons.search),
+                hintStyle: const TextStyle(color: Colors.white),
+              ),
+            ),
+            const Spacer(),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  cubit.getWordSearched();
+                },
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.deepOrangeAccent,
+                    padding: const EdgeInsets.all(16)),
+                child: const Text("SEARCH"),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -71,9 +93,9 @@ class HomeScreen extends StatelessWidget {
   getErrorWidget(message) {
     return Center(
         child: Text(
-      message,
-      style: const TextStyle(color: Colors.white),
-    ));
+          message,
+          style: const TextStyle(color: Colors.white),
+        ));
   }
 
   @override
@@ -97,10 +119,16 @@ class HomeScreen extends StatelessWidget {
           body: cubit.state is WordSearchingState
               ? getLoadingWidget()
               : cubit.state is ErrorState
-                  ? getErrorWidget("Some Error")
-                  : cubit.state is NoWordSearchedState
-                      ? getDictionaryFormWidget(context)
-                      : Container()),
+              ? getErrorWidget("Some Error")
+              : cubit.state is NoWordSearchedState
+              ? getDictionaryFormWidget(context)
+              : Container()),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
 }

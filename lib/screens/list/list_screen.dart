@@ -18,6 +18,8 @@ class ListScreen extends StatelessWidget {
             style: const TextStyle(color: Colors.white),
           ),
           onTap: () {
+            print('qqq');
+            print(context);
             Navigator.push(
               context,
               MaterialPageRoute(
